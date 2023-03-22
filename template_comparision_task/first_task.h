@@ -1,4 +1,7 @@
-class NewA
+#include <string>
+#include "OtherComparisionOperators.h"
+
+class NewA : public OtherComparisionOperators<NewA>
 {
 public:
     NewA(int a, int b) : m_a(a), m_b(b){}
@@ -28,4 +31,25 @@ public:
 private:
     int m_a = 0;
     int m_b = 0;
+};
+
+
+class NewB : public OtherComparisionOperators<NewB>
+{
+public:
+    NewB(std::string_view val) : m_stringView(val){}
+
+// Операторы сравнения с std::string
+    bool operator<(const std::string& other) const
+    {
+        return m_stringView < other;
+    }
+
+    bool operator>(const std::string& other) const
+    {
+        return m_stringView > other;
+    }
+
+private:
+    std::string_view m_stringView;
 };
